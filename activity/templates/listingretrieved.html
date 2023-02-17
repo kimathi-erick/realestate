@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+{% extends 'base.html'%}
+{% load static%}
+{% block content%}
+<a href="{% url 'listing'%}" style="padding: 10px;margin:10;color:blue;top:10px">  &laquo; &laquo; &laquo;  Go back</a>
+<hr>
+<div class="retrieves">
+    
+    
+    <div class="subretrieves">
+        <img src="{{retrieved.image.url}}" ></img>
+        <br></br>
+        
+        <div style="float: left;width: 49%;text-align: center;
+        background-color: beige;border-radius: 20px;box-shadow: -3px 5px 10px 17px;">
+            <br>
+            <br>
+            <h3 style="color: blue;">A   {{retrieved.sqr_footage}}ft {{retrieved.hometype}}  in {{retrieved.location}}</h3>
+               <p><i class="fa fa-map-marker" style="font-size: 20px;color:blue"></i>  {{retrieved.location}}, Kenya</p>
+            <br>
+            <h1 style="color: crimson;">@ ${{retrieved.price}}</h1>
+            <br>
+            <br>
+            
+            
+        </div> 
+        <div style="float: right;width:49%">
+            <table>
+                <tr><th>&laquo;&raquo;</th><td>{{retrieved.category}}</td></tr>
+                <tr><th><i class="fa fa-phone"></i></th><td>{{retrieved.agent_no}}</td></tr>
+                <tr><th><i class="fa fa-home"></i></th><td>{{retrieved.hometype}}</td></tr>
+                <tr><th><i class="fa fa-map-marker"></i></th><td>{{retrieved.location}}</td></tr>
+                <tr><th><i class="fa fa-credit-card"></i></th><td>${{retrieved.price|floatformat:2}}</td></tr>
+                <tr><th><i class="fa fa-bath"></i></th><td>{{retrieved.bathrooms}}</td></tr>
+                <tr><th><i class="fa fa-bed"></i></th><td>{{retrieved.bedrooms}}</td></tr>
+                
+                
+                
+            </table>
+
+        </div>
+        
+    </div>
+    <div class="updateform">
+        <form method="post">
+          {% csrf_token%}
+          <h3 style="color: brown;">Schedule viewing Day</h3>
+          <hr>
+          {{form.as_p}}
+          <button type="submit">SEND</button>
+        </form>
+        
+    </div>
+             
+</div>
+<div class="kk">
+    <h2>Contact us for a viewing schedule </h2><br>
+    <div class="kk2">
+    <a href="tel:+254745323941" ><i class="fa fa-phone "></i></a> 
+    <a href="https://api.whatsapp.com/send?phone=745323941" > <i class="fa fa-whatsapp"></i></a>
+    <a href="mailto:ericqoh180@gmail.com"><i class="fa fa-envelope" ></i></a>
+    </div>
+</div>
+<div id="map">
+
+</div>    
+    
+<div style="padding: 50px;">
+    <h3 style="color:brown"> More details  &raquo; &raquo; </h3>
+    <p>{{retrieved.text}}</p>
+</div> 
+
+
+{% endblock content%}
+        
+<script>
+    function mymap(){
+        var mapProp={
+            center:new
+            google.maps.latlng(-34.397,150.644),
+            zoom:8
+
+        };    
+    var map=new 
+    google.maps.Map(document.getElementById('map'),mapProp);
+    }
+
+    </script>
+    <script async src="https://maps.googleapis.com/maps/api/js?
+    key=AIzaSyCAIwTPctnSM2PWcbK6cMdlZaSgEYIKp5U&callback=initmap"></script>
+
+
+
+
+
+    
+</body>
+</html>

@@ -1,0 +1,31 @@
+
+{% extends 'base.html'%}
+{% load static %}
+<link rel="stylesheet"  type="text/css"   href="{%static 'css/style.css'%}">
+
+
+{% block content%}
+    <div class="checkout">
+       
+        <div class="subcheckout">
+            <a href="{% url 'cart'%}"><button >Back to cart</button>  </a>
+            <br>
+            <h2>Order Summary</h2>
+            <table>
+                {% for item in items%}
+                <tr>
+                    <td><img src="{{item.product.Image.url}}" >
+                    </td>
+                    <td>{{item.product.Hometype}}</td>
+                    <td>${{item.product.Price}}</td>
+                    <td>{{item.quantity}}</td>
+                   
+                </tr>
+                {% endfor%}
+                <h4>items: {{Order.get_cart_items}}</h4>
+                <h4>total:${{Order.get_cart_total}}</h4>
+            </table>
+        </div>
+
+    </div>
+{% endblock content%}

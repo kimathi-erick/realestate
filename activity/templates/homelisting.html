@@ -1,0 +1,83 @@
+{% extends "base.html"%}
+{% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"   href="{%static 'style.css'%}">
+{% block content%}
+    
+<div class="search">
+  <form   method="GET">
+      {{listingfilters.form}}
+      <input type="submit" value="search" style="color: green;width: fit-content;"> <a href="{% url 'listing'%}"><i class="fa fa-refresh fa-spin" style="font-size:15px;color: white;"></i></a>
+  </form>
+</div>    
+    <div class="homelisting">
+        {% for homelisting in homelistings %}
+            <div class="homelistingsub">
+                <a href="/retrieves/{{homelisting.id}}"><img src="{{homelisting.image.url}}"></a>
+                <a href="{% url 'liking' homelisting.id %}"><i class="fa fa-heart-o" style="font-size: 20px;padding: 5px;color: red;"></i></a>
+            {{homelisting.Likes}}
+            <li style="font-size: 20px;list-style: none;color: red;">${{homelisting.price}}</li>
+            
+                <ul>
+                  
+                    <li style="color:green;border-radius: 5px;background-color: yellow;">{{homelisting.category}}</li>
+                    <li><i class="fa fa-home"></i>{{homelisting.hometype}}</li>
+                    <li><i class="fa fa-map-marker"></i>{{homelisting.location }}</li>
+                    
+                    <li><i class="fa fa-bath"></i>{{homelisting.bathrooms}}</li>
+                    <li><i class="fa fa-bed"></i>{{homelisting.bedrooms}}</li>
+                    
+                    
+                    
+                </ul>
+                <div class="btns">
+                    {%if user.is_superuser%}
+                    <a href="/retrieves/{{homelisting.id}}/update"><i class="fa fa-refresh" style="color: green;font-size:large;"></i>  </a>
+                    <a href="/retrieves/{{homelisting.id}}/delete"><i class="fa fa-trash" style="color: red;font-size:larger"></i>  </a>
+                    {% endif%}
+                </div> 
+            </div>                
+        {% endfor %}
+    
+    </div>
+    <div class="pagination">
+        {% if homelistings.has_other_pages %}
+        <nav>
+          <ul class="pagination justify-content-center">
+            {% if homelistings.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ homelistings.previous_page_number }}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                  <span class="page-link" aria-hidden="true">&laquo;</span>
+              </li>
+            {% endif %}
+        
+            {% for p in homelistings.paginator.page_range %}
+              {% if homelistings.number == p %}
+                <li class="page-item"><a class="page-link" style="color: red;" href="#">{{ p }}</a></li>
+              {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+              {% endif %}
+            {% endfor %}
+        
+            {% if homelistings.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ homelistings.next_page_number }}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <span class="page-link" aria-hidden="true">&raquo;</span>
+              </li>
+            {% endif %}
+        </ul>
+        </nav>
+        {% endif %} 
+        </div>
+    
+{% endblock content%}

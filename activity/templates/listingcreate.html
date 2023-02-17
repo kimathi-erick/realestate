@@ -1,0 +1,42 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block content%}
+<div class="updateform" style="height: 150vh;">
+    
+    <form method="post" enctype="multipart/form-data">
+        
+        {%csrf_token%}
+        <p><h3><i class="fa fa-plus"></i> ADD LISTING</h3></p><hr>
+        <p>{{form.category.label}}
+            {{form.category}}</p>
+    
+            <p>{{form.hometype.label}}
+            {{form.hometype}}</p>
+    
+            <p>{{form.bedrooms.label}}
+            {{form.bedrooms}}</p>
+    
+            <p>{{form.price.label}}
+            {{form.price}}</p>
+        <p>{{form.location.label}}
+            {{form.location}}</p>
+    
+            <p>{{form.bathrooms.label}}
+            {{form.bathrooms}}</p>
+    
+            <p>{{form.sqr_footage.label}}
+            {{form.sqr_footage}}</p>
+    
+            <p>{{form.agent_no.label}}
+            {{form.agent_no}}</p>
+        <p>{{form.image.label}}
+            {{form.image}}</p>
+    
+            <p>{{form.text.label}}
+            {{form.text}}</p> 
+        <button type="submit">submit</button>
+
+    </form>
+    
+</div>
+{% endblock content%}

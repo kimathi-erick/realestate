@@ -1,0 +1,41 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block content%}
+<div class="updateform" style="height: 150vh;">
+    
+    <form method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        <p><h3><i class="fa fa-refresh"></i>   UPDATE LISTING</h3></p><hr>
+       <p><b>{{form.category.label}}</b>
+            {{form.category}}</p>
+    
+            <p><b >{{form.hometype.label}}</b>
+            {{form.hometype}}</p>
+    
+            <p><b>{{form.bedrooms.label}}</b>
+            {{form.bedrooms}}</p>
+    
+            <p><b>{{form.price.label}}</b>
+            {{form.price}}</p>
+        <p><b>{{form.location.label}}</b>
+            {{form.location}}</p>
+    
+            <p><b>{{form.bathrooms.label}}</b>
+            {{form.bathrooms}}</p>
+    
+            <p><b>{{form.sqr_footage.label}}</b>
+            {{form.sqr_footage}}</p>
+    
+            <p><b>{{form.agent_no.label}}</b>
+            {{form.agent_no}}</p>
+        <p><b>{{form.image.label}}</b>
+            {{form.image}}</p>
+    
+            <p><b>{{form.text.label}}</b>
+            {{form.text}}</p> 
+        <button type="submit">submit</button>
+
+    </form>
+    
+</div>
+{% endblock content%}

@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+<div  class="rform" >
+    <form method="POST" enctype="multipart/form-data" >
+        <p><h3><i class="fa fa-user"></i>  My Profile</h3></p>
+        {% csrf_token %}
+        <p>{{form.name.label}}
+            {{form.name}}</p>
+    
+        <p style="max-width: 100%;">{{form.phone.label}}
+            {{form.phone}}</p>
+        <p>{{form.email.label}}
+                {{form.email}}</p>
+    
+        <p style="max-width: 100%;">{{form.profile_pic.label}}
+            {{form.profile_pic}}</p>
+        <button type="submit">submit</button>
+    </form>
+</div>    
+{% endblock content %}

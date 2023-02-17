@@ -1,0 +1,19 @@
+{% extends 'base.html'%}
+{% load static%}
+{% block content%}
+
+<table style="width: 100%;text-align:center">
+    <tr><th>profile pic</th><th>name</th><th>status</th><th>email</th><th>phone number</th><th>remove customer</th> </tr>
+    {% for customer in allcustomers%}
+    <tr><td style="height: 10px;width: 10px;"><img src="{{customer.profile_pic.url}}"></td><td>{{customer.name}}</td>
+        <td>{%if customer.user.is_superuser%}
+            Admin   <i class="fa fa-check-circle" style="color: blue;" ></i>
+            {% else%}
+            Client
+            {%endif%}
+        </td>
+        <td>{{customer.email}}</td><td>{{customer.phone}}</td>
+        <td><a href="/customerdelete/{{customer.id}}/delete/"> <i class="fa fa-trash"></i> </a> </td> </tr>
+    {%endfor%}
+</table>
+{%endblock content%}

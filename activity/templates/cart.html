@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+{% load static%}
+{% block content%}
+    <table style="border: 1px solid black;text-align: center;width:80%">
+        <tr>
+            <th style="width:10%;border:1px solid grey;height: 40px;">type</th>
+            <th style="width:10%;border:1px solid grey">price</th>
+            <th style="width:10%;border:1px solid grey">quantity</th>
+            <th style="width:10%;">Total cost</th>
+            
+        </tr>
+        {% for item in items%}
+        <tr>
+            <td style="width:10%;border:1px solid grey">{{item.product.Hometype}}</td>
+            <td style="width:10%;border:1px solid grey">{{item.product.Price}}</td>
+            <td style="width:10%;border:1px solid grey">{{item.quantity}}    <b data-product="{{item.product.id}}" data-action="add" class="update-cart">+</b>
+                <b data-product="{{item.product.id}}" data-action="remove" class="update-cart">-</b></td>
+            <td style="width:10%;border:1px solid grey">{{item.get_total}}</td>
+            
+        </tr>
+        {% endfor%}
+    </table>
+    <h3>Total quantity</h3>{{Order.get_cart_items}}
+    <h3>Total cost</h3>{{Order.get_cart_total}}
+    
+    <a href="{% url 'checkout'%}" style="color:white;background-color: green;
+    padding: 5px;text-align: center;width: 100%;">CHECKOUT</a>
+{%endblock content%}    
+    
+    
+    

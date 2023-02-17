@@ -1,0 +1,19 @@
+{% extends "base.html"%}
+{% load static %}
+<link rel="stylesheet"   href="{%static 'style.css'%}">
+{% block content%}
+<div class="rform">
+<form method="POST">
+{% csrf_token %}
+    <h3><i class="fa fa-edit"></i>  Login</h3>
+   <p>Username <input type="text" placeholder="username" name="username" ></p>
+    <p>Password <input type="password" placeholder="password" name="password"></p><br>
+    <button type="submit"  value="login">Login</button><br> 
+    {% for message in messages%}
+    <p>{{message}}</p>
+    {% endfor%}<br>
+    Not a member?<a href="/register/">Signup</a>
+
+</form>
+</div>
+{% endblock content %}

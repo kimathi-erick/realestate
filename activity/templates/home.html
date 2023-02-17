@@ -1,0 +1,149 @@
+
+{% extends "base.html"%}
+{% load static %}
+<link rel="stylesheet"   href="{%static 'style.css'%}">
+{%block content%}
+
+
+<div class="section" >
+    <div class="section1" >
+        <div class="section2">
+            
+            <h1>With__Over__100K+__Listings</h1>
+            <br>
+
+            <a href="{% url 'registerpage'%}"><p><i class="fa fa-sign-out"></i>join_now</p></a>
+            
+        </div>
+        
+    </div>
+    <div class="section3">
+        <div class="section3sub">
+            <ul>
+                <a href="listing/" ><li> <i class="fa fa-search"></i>  Search listing</li></a>
+            </ul>
+        
+    
+        </div>
+    </div>
+
+</div>    
+<p style="color:blue;  font-size:20px;padding: 5px;"><marquee behavior="alternate"><i class="fa fa-home"></i>   Find it! <i class="fa fa-eye"></i>  Tour it! <i class="fa fa-bus"></i> Love it!<i class="fa fa-heart"></i></marquee></p>
+
+<div style="font-size: 15px;color: crimson;display: flex;
+align-items: center;justify-content: center;text-decoration: underline;"><img src="media/log.png" style="width:10%;"></img>
+<h1>Property Listings</h1></div>
+<div class="search">
+  <form method="GET">
+      {{listingfilters.form}}
+      <input type="submit" value="search" style="color: green;">  <a href="{% url 'listing'%}"><i class="fa fa-refresh fa-spin" style="font-size:15px;color: white;"></i></a>
+  </form>
+</div>      
+<div class="homelisting">
+    {% for homelisting in homelistings %}
+        <div class="homelistingsub">
+            <a href="/retrieves/{{homelisting.id}}"><img src="{{homelisting.image.url}}"></a>
+            <a href="{% url 'liking' homelisting.id %}"><i class="fa fa-heart-o" style="font-size: 20px;padding: 5px;color: red;"></i></a>
+            {{homelisting.Likes}}
+            <ul>
+                <li style="background-color:yellow;color:green;  border-radius: 5px;">{{homelisting.category}}</li>
+                <li><i class="fa fa-home"></i>{{homelisting.hometype}}</li>
+                <li><i class="fa fa-map-marker"></i>{{homelisting.location }}</li>
+                <li><i class="fa fa-credit-card"></i>${{homelisting.price}}</li>
+                <li><i class="fa fa-bath"></i>{{homelisting.bathrooms}}</li>
+                <li><i class="fa fa-bed"></i>{{homelisting.bedrooms}}</li>
+                  
+            </ul>
+            <div class="btns">
+                {%if user.is_superuser%}
+                <a href="/retrieves/{{homelisting.id}}/update"><i class="fa fa-refresh" style="color: green;font-size:large;"></i> </a>
+                <a href="/retrieves/{{homelisting.id}}/delete"><i class="fa fa-trash" style="color: red;font-size:larger"></i> </a>
+                {% endif%}
+            </div> 
+        </div> 
+    {% endfor %} 
+</div> 
+<div class="pagination">
+{% if homelistings.has_other_pages %}
+<nav>
+  <ul class="pagination justify-content-center">
+    {% if homelistings.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ homelistings.previous_page_number }}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+          <span class="page-link" aria-hidden="true">&laquo;</span>
+      </li>
+    {% endif %}
+
+    {% for p in homelistings.paginator.page_range %}
+      {% if homelistings.number == p %}
+        <li class="page-item"><a class="page-link" style="color: red;" href="#">{{ p }}</a></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if homelistings.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ homelistings.next_page_number }}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <span class="page-link" aria-hidden="true">&raquo;</span>
+      </li>
+    {% endif %}
+</ul>
+</nav>
+{% endif %} 
+</div>         
+
+
+
+
+<a href="{% url 'listing' %}" 
+    style="margin: 5px;text-decoration: none;font-size: larger;text-align: center;font-weight: 1000;"><li  
+    style="list-style:none ;background-color:  crimson;color: white;padding: 5px;" >view all  <i class="fa fa-long-arrow-right"></i></li></a>
+
+
+<hr>
+<br>
+<div class="contact" >
+    
+  <div class="subcontact">
+      <h1>About Us</h1>
+      <hr>
+      <span>As you might expect of a company that began as a high-end interiors contractor, we pay strict
+      attention to customer needs.</span>
+      <h3>Nakuru</h3>
+      <p>185 E Parker Square Dr, Parker, CO 811<br>+254 745-32-3941</p>
+      <h3>Nairobi</h3>
+      <p>HW95+C9C, Kwame Nkurumah, Kasarani, Westlands, Eastleigh<br>+254 745-32-3941</p>
+  </div>
+  {% if user.is_authenticated%}
+  <div class="subcontact" id="contacts">
+      <h1>Contact Us</h1>
+      <hr>
+      <form method="post">
+        {% csrf_token%}
+        {{form.as_p}}
+        <button type="submit">SEND MESSAGE</button>
+      </form>
+      
+  </div>
+  {% endif %}
+
+</div>
+
+               
+    
+
+
+
+      
+{% endblock content%}
