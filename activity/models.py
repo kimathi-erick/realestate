@@ -6,8 +6,8 @@ from email.policy import default
 from operator import mod
 import profile
 from tkinter import CASCADE
-from django.db import models
 from phone_field import PhoneField
+from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Avg
 from datetime import datetime
